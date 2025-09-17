@@ -1,5 +1,10 @@
-env:
-  DITTO_URL: "http://10.255.41.221:8080"
-  DITTO_AUTH: "ZGl0dG86ZGl0dG8="
-  VIDEO_URL: "http://127.0.0.1:5000/video_feed"
-  DITTO_WS_URL: "ws://10.255.41.221:8080/ws/2"
+enabled: true
+deployment:
+  image: "ghcr.io/atnog/grafana-eclipse-ditto:latest"
+  imagePullPolicy: "Always"
+  replicas: 1
+  env:
+    DITTO_URL: "http://10.255.41.221:8080"
+    DITTO_AUTH: "ZGl0dG86ZGl0dG8="
+    VIDEO_URL: "http://127.0.0.1:5000/video_feed"
+    DITTO_WS_URL: "ws://10.255.41.221:8080/ws/2"

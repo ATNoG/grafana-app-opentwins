@@ -19,7 +19,7 @@ export class MyVariableSupport extends CustomVariableSupport<DataSource> {
     const url = `${this.datasource.getUrl()}${this.datasource.getRoutePath()}/${this.datasource.getPath()}/things`;
 
     return from(
-      getBackendSrv().fetch<{ thingId: string }[]>({
+      getBackendSrv().fetch<Array<{ thingId: string }>>({
         url,
         method: 'GET',
       })

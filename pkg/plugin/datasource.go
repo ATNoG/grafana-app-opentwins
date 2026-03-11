@@ -173,17 +173,6 @@ func (d *Datasource) ensureWSTask() {
 				continue
 			}
 
-			_, rawMessage, err := wsClient.ReadMessage()
-			if err != nil {
-				log.DefaultLogger.Error("Failed to read subscribe ACK:", "err", err)
-				continue
-			}
-
-			if string(rawMessage) != "START-SEND-MESSAGES:ACK" {
-				log.DefaultLogger.Error("Expected ACK (\"START-SEND-MESSAGES:ACK\")", "msg", rawMessage)
-				continue
-			}
-
 			log.DefaultLogger.Info("Subscribed to messages")
 
 			for {
@@ -195,6 +184,11 @@ func (d *Datasource) ensureWSTask() {
 				if err != nil {
 					log.DefaultLogger.Error("Failed to read websocket message", "err", err)
 					break
+				}
+
+				if string(rawMessage) == "START-SEND-MESSAGES:ACK" {
+					log.DefaultLogger.Info("Received subscribe ACK")
+					continue
 				}
 
 				var message wsMessage
